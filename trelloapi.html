@@ -15,12 +15,8 @@
    .then(response => response.json())
    .then(characters => showCharacters(characters.data));
    showCharacters = characters => {
-
-    document.write("<table class='tab'><tr class='tab'><th class='tab'><h2>Name</h2></th><th class='tab'><h2>USN</h2></th><th>");
     characters.forEach(character => {
-        if(character.Name!="Name"){
-      document.write("<tr style='color:black;font-weight: bold;'><td>" + character.trello_username + "</td><td class='tab'>" + character.discord_id + "</td><td>");
-      }
+        document.write(character.trello_username + " - " + character.discord_id + "</br>");
     });
 }
 </script>
