@@ -7,17 +7,45 @@
     <title>Document</title>
 </head>
 <body>
-
+    
 </body>
-<script>
-  const api="https://script.google.com/macros/s/AKfycbwHPwxFktnMjCn5xO-01LtEHkpKglwky6NQipEM_dub1_ku_gCp19Sj0dH8u2D6e03v/exec";
-    fetch(api)
-   .then(response => response.json())
-   .then(characters => showCharacters(characters.data));
-   showCharacters = characters => {
-    characters.forEach(character => {
-        document.write(character.trello_username + " - " + character.discord_id + "</br>");
-    });
-}
-</script>
 </html>
+<script>
+    const api_googlesheet_user = "https://script.google.com/macros/s/AKfycbwHPwxFktnMjCn5xO-01LtEHkpKglwky6NQipEM_dub1_ku_gCp19Sj0dH8u2D6e03v/exec";
+    const api_discord_bot = "https://discord.com/api/channels/1110856406355161120/messages";
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bot MTExMDg1MzMwNzE4MzkzNTU0OA.GgqaZX.kJnWEzFBhPitQ9FHxMmQxsJ_fEES_OM-WuZabI',
+        },
+        body: '{"content": "<@every>"}'};
+
+    const userTestID = "pcthanh";
+
+    <!-- GET DATE FROM API_googlesheet_user -->
+    fetch(api_googlesheet_user)
+        .then(response => response.json())
+        .then(users => usersDATA(users.data));
+
+    usersDATA = users => {
+        users.forEach(user => {
+            if (userTestID === user.trello_username) {
+                console.log(user.discord_id);
+                console.log(user.discord_channel_id);
+            }
+        });
+    }
+
+
+
+    
+    fetch(api_discord_bot, options)
+    
+        .then(response => response.json())
+    
+        .then(response => console.log(response))
+    
+        .catch(err => console.error(err));
+
+</script>
